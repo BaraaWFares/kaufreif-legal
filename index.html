@@ -1,11 +1,93 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=datenschutz.html" />
-    <title>Kaufreif</title>
-  </head>
-  <body>
-    <a href="datenschutz.html">Datenschutzerklärung</a>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rechtliches · Kaufreif</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 44rem; margin: 0 auto; padding: 1.25rem 1.25rem 5rem;
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Arabic", sans-serif;
+    color: #111827; background: #F7F7FC; overflow-wrap: anywhere;
+  }
+  h1 { font-size: 1.7rem; line-height: 1.35; margin: 0 0 .35rem; }
+  h2 { font-size: 1.05rem; margin: 2.2rem 0 .6rem; }
+  p, li { margin: 0 0 .7rem; }
+  ul { padding-inline-start: 1.2rem; }
+  .meta { color: #4B5563; font-size: .9rem; margin-bottom: 2rem; }
+  aside { background: #EEF2FF; border-inline-start: 3px solid #5B5BD6; padding: .8rem 1rem; margin: 1.2rem 0; }
+  aside ul { margin: 0; }
+  .sprachen { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+  .sprachen button { font: inherit; font-size: .9rem; padding: .35rem .9rem; min-height: 2.5rem; border-radius: 999px; border: 1px solid #C7D2FE; background: none; color: #4338CA; cursor: pointer; }
+  .sprachen button[aria-pressed="true"] { background: #4338CA; border-color: #4338CA; color: #FFFFFF; }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid #DDDFEA; color: #4B5563; font-size: .85rem; }
+  footer nav a { margin-inline-end: 1rem; }
+  a { color: #4338CA; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #F3F4F6; background: #0E0E1A; }
+    .meta, footer { color: #C4C6D0; }
+    aside { background: #1E1E3A; border-color: #A5A6F6; }
+    footer { border-top-color: #2A2A3D; }
+    a { color: #C7C8FA; }
+    .sprachen button { border-color: #3A3A5C; color: #C7C8FA; }
+    .sprachen button[aria-pressed="true"] { background: #A5A6F6; border-color: #A5A6F6; color: #14142B; }
+  }
+</style>
+</head>
+<body>
+<nav class="sprachen" aria-label="Sprache / Language"><button type="button" data-ziel="de" lang="de" aria-pressed="true">Deutsch</button><button type="button" data-ziel="en" lang="en" aria-pressed="false">English</button><button type="button" data-ziel="tr" lang="tr" aria-pressed="false">Türkçe</button><button type="button" data-ziel="ar" lang="ar" aria-pressed="false">العربية</button><button type="button" data-ziel="uk" lang="uk" aria-pressed="false">Українська</button></nav>
+<article data-lang="de" lang="de" dir="ltr">
+<h1>Kaufreif · Rechtliches</h1>
+<ul>
+  <li><a href="datenschutz.html?lang=de">Datenschutzerklärung</a></li>
+  <li><a href="impressum.html?lang=de">Impressum</a></li>
+</ul>
+</article>
+<article data-lang="en" lang="en" dir="ltr" hidden>
+<h1>Kaufreif · Legal</h1>
+<ul>
+  <li><a href="datenschutz.html?lang=en">Privacy policy</a></li>
+  <li><a href="impressum.html?lang=en">Legal notice</a></li>
+</ul>
+</article>
+<article data-lang="tr" lang="tr" dir="ltr" hidden>
+<h1>Kaufreif · Yasal bilgiler</h1>
+<ul>
+  <li><a href="datenschutz.html?lang=tr">Gizlilik politikası</a></li>
+  <li><a href="impressum.html?lang=tr">Künye</a></li>
+</ul>
+</article>
+<article data-lang="ar" lang="ar" dir="rtl" hidden>
+<h1>Kaufreif · معلومات قانونية</h1>
+<ul>
+  <li><a href="datenschutz.html?lang=ar">سياسة الخصوصية</a></li>
+  <li><a href="impressum.html?lang=ar">بيانات الناشر</a></li>
+</ul>
+</article>
+<article data-lang="uk" lang="uk" dir="ltr" hidden>
+<h1>Kaufreif · Правова інформація</h1>
+<ul>
+  <li><a href="datenschutz.html?lang=uk">Політика конфіденційності</a></li>
+  <li><a href="impressum.html?lang=uk">Вихідні дані</a></li>
+</ul>
+</article>
+<script>
+(function () {
+  var artikel = document.querySelectorAll('article');
+  var knoepfe = document.querySelectorAll('.sprachen button');
+  function zeige(sprache) {
+    var da = false;
+    artikel.forEach(function (a) { var an = a.getAttribute('data-lang') === sprache; a.hidden = !an; da = da || an; });
+    if (!da) return zeige('de');
+    knoepfe.forEach(function (k) { k.setAttribute('aria-pressed', String(k.getAttribute('data-ziel') === sprache)); });
+    document.documentElement.lang = sprache;
+  }
+  knoepfe.forEach(function (k) { k.addEventListener('click', function () { zeige(k.getAttribute('data-ziel')); }); });
+  var gewuenscht = new URLSearchParams(location.search).get('lang');
+  zeige(gewuenscht || (location.hash ? 'de' : (navigator.language || 'de').slice(0, 2)));
+})();
+</script>
+</body>
 </html>
